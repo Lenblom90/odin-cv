@@ -1,0 +1,8 @@
+.Content {
+    margin-top: 100px;
+    flex: 3;
+}
+
+.Content :first-child {
+    padding-top: 20px;
+}

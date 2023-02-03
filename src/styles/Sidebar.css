@@ -1,0 +1,9 @@
+.Sidebar {
+    margin-top: 100px;
+    background-color: beige;
+    flex: 1;
+}
+
+.Sidebar :first-child {
+    padding-top: 20px;
+}
