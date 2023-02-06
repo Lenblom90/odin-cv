@@ -1,5 +1,5 @@
 import { Component } from "react";
-import SideItems from "./SideItems";
+import ListItem from "./ListItem";
 
 export default class SideSection extends Component {
   constructor(props){
@@ -8,21 +8,25 @@ export default class SideSection extends Component {
 
   render() {
     const title = this.props.title;
-    const items = this.props.items;
     const editMode = this.props.editMode;
+
+    const listItems = this.props.items.map((item) => {
+      return (<ListItem key={item.id} editMode={this.props.editMode} item={item} onEdit={this.props.onEdit}/>)
+    });
+  
 
     if(editMode){
       return (
         <div className="SideSection">
           <input placeholder={title} />
-          <SideItems editMode={editMode} items={items}/>
-        </div>
+          <ul>{listItems}</ul>
+          </div>
       );
     }
     return (
       <div className="SideSection">
         <h3>{title}</h3>
-        <SideItems editMode={editMode} items={items}/>
+        <ul>{listItems}</ul>
       </div>
     );
   }
