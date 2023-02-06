@@ -11,7 +11,6 @@ export default class Header extends Component {
   }  
 
   editText = () => {
-    console.log(this.state.isEditable);
     this.setState(function(prevState, prevProps) {
       return {
         isEditable: !prevState.isEditable
