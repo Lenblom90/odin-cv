@@ -33,17 +33,17 @@ export default class ListItem extends Component{
 
   render(){
     const listItem = (
-        <li className="SideItem">
+        <div className="SideItem">
           <label>{this.state.title} <span>{this.state.value}</span>
         </label>
-        </li>
+        </div>
         );
       
      const editItem = (
-          <li className="SideEdit">
+          <div className="SideEdit">
               <input className="title" defaultValue={this.state.title} onKeyDown={this.handleEdit} />
               <input className="value" defaultValue={this.state.value} onKeyDown={this.handleEdit}/>
-          </li>
+          </div>
         )
       
     const editMode = this.props.editMode;

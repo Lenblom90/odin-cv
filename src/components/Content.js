@@ -6,19 +6,19 @@ import '../styles/Content.css'
 export default class Content extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      job: [{title:"title",date:"01-01-2000",description:"something interesting"}],
-      edu: [{title:"title",date:"01-01-2000",description:"something interesting"}],
-      pub: [{title:"title",date:"01-01-2000",description:"something interesting"}]    
-    }
   }
+
+  job = [{id: "1",title:"title",date:"01-01-2000",description:"something interesting"}]
+  edu = [{id: "1",title:"title",date:"01-01-2000",description:"something interesting"}]
+  pub = [{id: "1",title:"title",date:"01-01-2000",description:"something interesting"}]    
+
 
   render() {
     return (
       <div className="Content">
-        <ContentSection editMode={this.props.editMode} title="Employment History" items={this.state.job}/>
-        <ContentSection editMode={this.props.editMode} title="Education" items={this.state.edu}/>
-        <ContentSection editMode={this.props.editMode} title="Publications" items={this.state.pub}/>
+        <ContentSection editMode={this.props.editMode} title="Employment History" items={this.job} onEdit={this.props.onEdit}/>
+        <ContentSection editMode={this.props.editMode} title="Education" items={this.edu} onEdit={this.props.onEdit}/>
+        <ContentSection editMode={this.props.editMode} title="Publications" items={this.pub} onEdit={this.props.onEdit}/>
       </div>
     );
   }

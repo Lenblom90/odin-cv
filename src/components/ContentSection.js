@@ -8,19 +8,25 @@ export default class ContentSection extends Component {
 
   render() {
     const editMode = this.props.editMode;
-    const items = this.props.items;
+    const onEdit = this.props.onEdit;
+    const listItems = this.props.items.map((item) => {
+      return (
+          <ContentItem key={item.id} className="ContentItem" item={item} editMode={editMode} onEdit={onEdit}/>
+      )
+    });
+
     if(!editMode){
       return (
         <div className="ContentSection">
           <h3>{this.props.title}</h3>
-          <ContentItem editMode={editMode} items={items}/>
+          <ul>{listItems}</ul>
         </div>
       );  
     } else {
       return (
         <div className="ContentSection">
           <input type="text" placeholder={this.props.title}/>
-          <ContentItem editMode={editMode} items={items}/>
+          <ul>{listItems}</ul>
         </div>
       );
     }
