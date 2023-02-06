@@ -1,18 +1,29 @@
 import { Component } from "react";
-import SideItem from "./SideItem";
+import SideItems from "./SideItems";
 
 export default class SideSection extends Component {
   constructor(props){
     super(props);
-  }  
+  }
 
   render() {
+    const title = this.props.title;
+    const items = this.props.items;
+    const editMode = this.props.editMode;
+
+    if(editMode){
+      return (
+        <div className="SideSection">
+          <input placeholder={title} />
+          <SideItems editMode={editMode} items={items}/>
+        </div>
+      );
+    }
     return (
       <div className="SideSection">
-        <h3>{this.props.title}</h3>
-        <SideItem title="skill 1" value="+++"/>
+        <h3>{title}</h3>
+        <SideItems editMode={editMode} items={items}/>
       </div>
     );
-    }
-
+  }
 }

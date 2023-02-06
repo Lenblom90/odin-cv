@@ -4,41 +4,34 @@ import '../styles/Header.css';
 export default class Header extends Component {
   constructor(props){
     super(props);
+    this.handleEdit = this.handleEdit.bind(this);
     this.state = {
-      name: props.name,
-      isEditable: false
+      name: "Header Text",
     }  
   }  
 
-  editText = () => {
-    this.setState(function(prevState, prevProps) {
-      return {
-        isEditable: !prevState.isEditable
-      }});
-  }
-
-  handleInput = (e) => {
+  handleEdit(e) {
     if(e.key === "Enter"){
-      this.setState((prevState, prevProps) => {
+      this.setState(() => {
         return {
           name: e.target.value,
-          isEditable: !prevState.isEditable
         }
       })
+      this.props.onEdit();
     }
   }
 
   render() {
-    if(!this.state.isEditable){
+    if(!this.props.editMode){
       return (
         <div className="Header">
-          <h1 onClick={this.editText} className="Header-text">{this.state.name}</h1>
+          <h1 className="Header-text">{this.state.name}</h1>
         </div>
       );  
     } else {
       return (
         <div className="Header">
-          <input type="text" placeholder={this.props.name} onKeyDown={this.handleInput} />
+          <input type="text" placeholder={this.state.name} onKeyDown={this.handleEdit} />
         </div>
       )
     }
