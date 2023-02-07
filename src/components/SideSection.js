@@ -1,33 +1,33 @@
-import { Component } from "react";
+import { useState } from "react";
 import ListItem from "./ListItem";
 
-export default class SideSection extends Component {
-  constructor(props){
-    super(props);
+export default function SideSection({defaultTitle, editMode, items, onEdit}) {
+  const [title, setTitle] = useState(defaultTitle);
+
+  const listItems = items.map((item) => {
+    return (<ListItem key={item.id} editMode={editMode} item={item} onEdit={onEdit}/>)
+  });
+
+  const handleEdit = (e) => {
+    if(e.key === "Enter"){
+      setTitle(e.target.value);
+      onEdit();
+    }
   }
 
-  render() {
-    const title = this.props.title;
-    const editMode = this.props.editMode;
-
-    const listItems = this.props.items.map((item) => {
-      return (<ListItem key={item.id} editMode={this.props.editMode} item={item} onEdit={this.props.onEdit}/>)
-    });
-  
-
-    if(editMode){
-      return (
-        <div className="SideSection">
-          <input placeholder={title} />
-          <ul>{listItems}</ul>
-          </div>
-      );
-    }
+  if(editMode){
     return (
       <div className="SideSection">
-        <h3>{title}</h3>
+        <input defaultValue={title} onKeyDown={handleEdit} />
         <ul>{listItems}</ul>
-      </div>
+        </div>
     );
   }
+
+  return (
+    <div className="SideSection">
+      <h3>{title}</h3>
+      <ul>{listItems}</ul>
+    </div>
+  );
 }

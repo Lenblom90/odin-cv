@@ -1,40 +1,27 @@
-import { Component } from "react";
+import { useState } from "react";
 import '../styles/Header.css';
 
-export default class Header extends Component {
-  constructor(props){
-    super(props);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.state = {
-      name: "Header Text",
-    }  
-  }  
+export default function Header({editMode,onEdit}) {
+  const [name, setName] = useState("Header Text");
 
-  handleEdit(e) {
+  const handleEdit = (e) => {
     if(e.key === "Enter"){
-      this.setState(() => {
-        return {
-          name: e.target.value,
-        }
-      })
-      this.props.onEdit();
+      setName(e.target.value)
+      onEdit();
     }
   }
 
-  render() {
-    if(!this.props.editMode){
+    if(!editMode){
       return (
         <div className="Header">
-          <h1 className="Header-text">{this.state.name}</h1>
+          <h1 className="Header-text">{name}</h1>
         </div>
       );  
     } else {
       return (
         <div className="Header">
-          <input type="text" placeholder={this.state.name} onKeyDown={this.handleEdit} />
+          <input type="text" defaultValue={name} onKeyDown={handleEdit} />
         </div>
       )
     }
-    }
-
 }

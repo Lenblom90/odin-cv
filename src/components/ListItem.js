@@ -1,54 +1,36 @@
-import { Component } from "react";
+import { Component, useState } from "react";
 
-export default class ListItem extends Component{
-  constructor(props){
-    super(props);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.state = {
-        title: this.props.item.title,
-        value: this.props.item.value
-    }
-  }
+export default function ListItem({item, editMode, onEdit}){
+  const [title, setTitle] = useState(item.title);
+  const [value, setValue] = useState(item.value);
 
-  handleEdit = (e) => {
+  const handleEdit = (e) => {
     if(e.key === "Enter"){
         if(e.target.className === 'title'){
-            this.setState((prevState) => {
-                return {
-                    title: e.target.value,
-                    value: prevState.value
-                }
-            })
+          setTitle(e.target.value);
         } else {
-            this.setState((prevState) => {
-                return {
-                    title: prevState.title,
-                    value: e.target.value
-                }
-            })
+          setValue(e.target.value);
         }
-      this.props.onEdit();
+      onEdit();
     }
   }
 
-  render(){
-    const listItem = (
-        <div className="SideItem">
-          <label>{this.state.title} <span>{this.state.value}</span>
-        </label>
-        </div>
-        );
-      
-     const editItem = (
-          <div className="SideEdit">
-              <input className="title" defaultValue={this.state.title} onKeyDown={this.handleEdit} />
-              <input className="value" defaultValue={this.state.value} onKeyDown={this.handleEdit}/>
-          </div>
-        )
-      
-    const editMode = this.props.editMode;
-    return (<li>
-        {editMode ? editItem : listItem}
+  const listItem = (
+    <div className="SideItem">
+      <label>{title} <span>{value}</span>
+      </label>
+      </div>
+      );
+    
+  const editItem = (
+    <div className="SideEdit">
+      <input className="title" defaultValue={title} onKeyDown={handleEdit} />
+      <input className="value" defaultValue={value} onKeyDown={handleEdit}/>
+      </div>
+    );
+  
+    return (
+    <li>
+      {editMode ? editItem : listItem}
     </li>);
-  }
 }

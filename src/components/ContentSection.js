@@ -1,35 +1,37 @@
-import { Component } from "react";
+import { useState } from "react";
 import ContentItem from "./ContentItem";
 
-export default class ContentSection extends Component {
-  constructor(props){
-    super(props);
-  }  
+export default function ContentSection({editMode, onEdit, items, defaultTitle}) {
 
-  render() {
-    const editMode = this.props.editMode;
-    const onEdit = this.props.onEdit;
-    const listItems = this.props.items.map((item) => {
+  const [title, setTitle] = useState(defaultTitle);
+
+  const listItems = items.map((item) => {
       return (
           <ContentItem key={item.id} className="ContentItem" item={item} editMode={editMode} onEdit={onEdit}/>
       )
     });
 
+    const handleEdit = (e) => {
+      if(e.key === "Enter"){
+          setTitle(e.target.value);
+          onEdit();
+      }
+    }
+
+
     if(!editMode){
       return (
         <div className="ContentSection">
-          <h3>{this.props.title}</h3>
+          <h3>{title}</h3>
           <ul>{listItems}</ul>
         </div>
       );  
     } else {
       return (
         <div className="ContentSection">
-          <input type="text" placeholder={this.props.title}/>
+          <input type="text" defaultValue={title} onKeyDown={handleEdit}/>
           <ul>{listItems}</ul>
         </div>
       );
     }
-    }
-
 }
